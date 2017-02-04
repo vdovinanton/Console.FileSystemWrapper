@@ -11,7 +11,9 @@ namespace FileSystemWrapper.Logic.Implmentation.FileActions
     {
         public string Execute(string path)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException();
+
+            return path;
         }
     }
 }
