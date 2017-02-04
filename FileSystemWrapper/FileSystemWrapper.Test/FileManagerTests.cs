@@ -60,17 +60,34 @@ namespace FileSystemWrapper.Test
         [Test]
         public void CorrectCalledCount_Case1()
         {
+            // Arrange
             foreach (var content in _contentCollection)
             {
                 _mockFileManager.Object.SaveAsync(It.IsAny<string>(), content).Wait();
             }
 
-            _mockFileManager.Verify(q => q.SaveAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(_contentCollection.Count));
+            // Assert
+            _mockFileManager.Verify(q => q.SaveAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(_contentCollection.Count), $"Must be called {_contentCollection.Count} times");
+        }
+
+        [Test]
+        public void ContentResultFile_Case3()
+        {
+            // Arrange
+            foreach (var content in _contentCollection)
+            {
+                _fileManager.SaveAsync(_fileName, content).Wait();
+            }
+
+            var actual = File.ReadLines(_currentPath).ToList();
+
+            Assert.That(_contentCollection, Is.EqualTo(actual));
         }
 
         [Test]
         public void CreateResultFile_Case2()
         {
+            // Assert
             foreach (var content in _contentCollection)
             {
                 _fileManager.SaveAsync(_fileName, content).Wait();

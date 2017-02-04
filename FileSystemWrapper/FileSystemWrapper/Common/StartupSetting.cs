@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
 using FileSystemWrapper.Common.Enums;
+using FileSystemWrapper.Logic.Implmentation;
+using FileSystemWrapper.Logic.Interfaces;
 
 namespace FileSystemWrapper.Common
 {
@@ -28,5 +31,16 @@ namespace FileSystemWrapper.Common
             { "reversed1", AvailableActions.Reversed1 },
             { "reversed2", AvailableActions.Reversed2 }
         };
+
+        public IContainer GetBuilder()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<FileManager>().As<IFileManager>();
+            builder.RegisterType<FileActionBroker>().As<IFileActionsBroker>();
+            builder.RegisterType<FileService>().As<IFileService>();
+
+            return builder.Build();
+        }
     }
 }

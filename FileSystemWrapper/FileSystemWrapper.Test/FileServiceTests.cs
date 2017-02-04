@@ -128,9 +128,8 @@ namespace FileSystemWrapper.Test
             // Assert
             _mockFileMediator.Verify(q => q.GetCurrentActionType(command), Times.Once, "Must be called once");
             _mockFileManager.Verify(q => q.GetFileNamesAsync(It.IsAny<string>(), command), Times.Once(), "Must be called once");
-            _mockFileAction.Verify(q => q.Execute(It.IsAny<string>()), Times.Exactly(sortedCollection.Count()), $"Must be called {sortedCollection.Count} times");
-            _mockFileManager.Verify(q => q.SaveAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(sortedCollection.Count()), $"Must be called {sortedCollection.Count} times");
-
+            _mockFileAction.Verify(q => q.Execute(It.IsAny<string>()), Times.Exactly(sortedCollection.Count), $"Must be called {sortedCollection.Count} times");
+            _mockFileManager.Verify(q => q.SaveAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(sortedCollection.Count), $"Must be called {sortedCollection.Count} times");
         }
 
 
