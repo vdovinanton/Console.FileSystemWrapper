@@ -43,12 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\StartupSetting.cs" />
+    <Compile Include="Logic\Implmentation\FileActionMediator.cs" />
+    <Compile Include="Logic\Implmentation\FileActions\CppPathShift.cs" />
+    <Compile Include="Logic\Implmentation\FileActions\PathShift.cs" />
+    <Compile Include="Logic\Implmentation\FileActions\ReverseAFilePath.cs" />
+    <Compile Include="Logic\Implmentation\FileActions\ReverseBFilePath.cs" />
+    <Compile Include="Logic\Implmentation\FileManager.cs" />
+    <Compile Include="Logic\Implmentation\FileService.cs" />
+    <Compile Include="Logic\Interfaces\IFileAction.cs" />
+    <Compile Include="Logic\Interfaces\IFileActionsMediator.cs" />
+    <Compile Include="Logic\Interfaces\IFileManager.cs" />
+    <Compile Include="Logic\Interfaces\IFileService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
