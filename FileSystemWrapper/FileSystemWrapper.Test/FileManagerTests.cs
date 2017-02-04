@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FileSystemWrapper.Common;
 using FileSystemWrapper.Logic.Implmentation;
 using FileSystemWrapper.Logic.Interfaces;
@@ -18,7 +15,6 @@ namespace FileSystemWrapper.Test
         private Mock<IFileManager> _mockFileManager;
         private FileManager _fileManager;
         private IList<string> _contentCollection;
-        //private string _fileName;
         private string _currentPath;
 
         [OneTimeSetUp]
