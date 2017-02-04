@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using FileSystemWrapper.Common;
 using FileSystemWrapper.Common.Enums;
@@ -23,11 +20,11 @@ namespace FileSystemWrapper.Logic.Implmentation
 
         public string ResultFileName
         {
-            get { return string.IsNullOrEmpty(_fileName) ? StartupSetting.Instance.DefaultFileName : _fileName + ".txt"; }
+            get { return string.IsNullOrEmpty(_fileName) ? StartupSetting.Instance.MyDocumentsDirectory : _fileName; }
             set { _fileName = value; }
         }
 
-        public async Task FileScanningProcessAsync(string directoryPath, AvailableActions command)
+        public async Task FileProcessAsync(string directoryPath, AvailableActions command)
         {
             var currentFileAction = _actionBroker.GetCurrentActionType(command);
             var files = await _fileManager.GetFileNamesAsync(directoryPath, command);

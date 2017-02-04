@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FileSystemWrapper.Common.Enums;
 using FileSystemWrapper.Logic.Implmentation.FileActions;
 using FileSystemWrapper.Logic.Interfaces;

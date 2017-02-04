@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using Autofac;
 using FileSystemWrapper.Common;
-using FileSystemWrapper.Common.Enums;
 using FileSystemWrapper.Logic.Interfaces;
 
 namespace FileSystemWrapper
@@ -14,17 +10,40 @@ namespace FileSystemWrapper
     {
         public static void Main(string[] args)
         {
-            var inputPath = "D:\\Demo";
-            var inputCommand = AvailableActions.Cpp;
+            var destFileName = StartupSetting.Instance.MyDocumentsDirectory;
+            if (!Validate(args))
+            {
+                Console.ReadKey();
+                return;
+            }
+            if (args.Length == 3)
+                destFileName = args[2];
 
             var container = StartupSetting.Instance.GetBuilder();
             using (var scope = container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<IFileService>();
-
-                service.FileScanningProcessAsync(inputPath, inputCommand).Wait();
-                Console.WriteLine($"Result was saved to the {StartupSetting.Instance.MyDocumentsDirectory}");
+                service.ResultFileName = destFileName;
+                service.FileProcessAsync(args[0], StartupSetting.Instance.AvalibleCommands[args[1].ToLower()]).Wait();
+                Console.WriteLine($"Result was saved to the {destFileName}");
             }
+        }
+
+        private static bool Validate(string[] args)
+        {
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Missed input parameters");
+                return false;
+            }
+            if (!Directory.Exists(args[0]))
+            {
+                Console.WriteLine("Directory path non-valid or can not be read");
+            }
+
+            if (StartupSetting.Instance.AvalibleCommands.ContainsKey(args[1].ToLower())) return true;
+            Console.WriteLine("Action name must be one of: all, cpp, reversed1, reversed2");
+            return false;
         }
     }
 }

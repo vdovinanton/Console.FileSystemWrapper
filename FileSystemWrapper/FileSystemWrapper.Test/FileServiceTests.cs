@@ -70,7 +70,7 @@ namespace FileSystemWrapper.Test
                 .Returns(() => Task.FromResult(new List<string>()));
 
             // Actual
-            _fileService.FileScanningProcessAsync(path, command).Wait();
+            _fileService.FileProcessAsync(path, command).Wait();
 
             // Assert
             _mockFileMediator.Verify(q => q.GetCurrentActionType(command), Times.Once, "Must be called once");
@@ -94,7 +94,7 @@ namespace FileSystemWrapper.Test
                 .Returns(() => Task.FromResult(_pathCollection.ToList()));
 
             // Actual
-            _fileService.FileScanningProcessAsync(It.IsAny<string>(), command).Wait();
+            _fileService.FileProcessAsync(It.IsAny<string>(), command).Wait();
 
             // Assert
             _mockFileMediator.Verify(q => q.GetCurrentActionType(command), Times.Once, "Must be called once");
@@ -123,7 +123,7 @@ namespace FileSystemWrapper.Test
                 .Returns(() => Task.FromResult(sortedCollection));
 
             // Actual
-            _fileService.FileScanningProcessAsync(It.IsAny<string>(), command).Wait();
+            _fileService.FileProcessAsync(It.IsAny<string>(), command).Wait();
 
             // Assert
             _mockFileMediator.Verify(q => q.GetCurrentActionType(command), Times.Once, "Must be called once");
@@ -142,7 +142,7 @@ namespace FileSystemWrapper.Test
             // Actual
             var returnedName = _fileService.ResultFileName;
             // Assert
-            Assert.That(returnedName, Is.EqualTo(StartupSetting.Instance.DefaultFileName));
+            Assert.That(returnedName, Is.EqualTo(StartupSetting.Instance.MyDocumentsDirectory));
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace FileSystemWrapper.Test
         {
             // Arrange
             var customFileName = "logfile";
-            var expectedFileName = customFileName + ".txt";
+            var expectedFileName = customFileName;
 
             _fileService.ResultFileName = customFileName;
 

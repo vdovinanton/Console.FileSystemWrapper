@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using FileSystemWrapper.Common.Enums;
 using FileSystemWrapper.Logic.Implmentation;
@@ -20,9 +17,8 @@ namespace FileSystemWrapper.Common
 
         private StartupSetting() { }
 
-        public readonly string DefaultFileName = "results.txt";
         public readonly string CppFormatEnding = " /";
-        public readonly string MyDocumentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public readonly string MyDocumentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\results";
 
         public Dictionary<string, AvailableActions> AvalibleCommands => new Dictionary<string, AvailableActions>
         {

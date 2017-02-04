@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using FileSystemWrapper.Common;
 using FileSystemWrapper.Common.Enums;
@@ -23,9 +22,8 @@ namespace FileSystemWrapper.Logic.Implmentation
         }
 
         public async Task SaveAsync(string fileName, string content)
-        {
-            var documentsDirectory = StartupSetting.Instance.MyDocumentsDirectory;
-            await Task.Factory.StartNew(() => File.AppendAllText($"{documentsDirectory}\\{fileName}", content + Environment.NewLine));
+        {            
+            await Task.Factory.StartNew(() => File.AppendAllText(!fileName.EndsWith(".txt") ? fileName + ".txt" : fileName, content + Environment.NewLine));
         }
     }
 }

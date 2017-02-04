@@ -18,7 +18,7 @@ namespace FileSystemWrapper.Test
         private Mock<IFileManager> _mockFileManager;
         private FileManager _fileManager;
         private IList<string> _contentCollection;
-        private string _fileName;
+        //private string _fileName;
         private string _currentPath;
 
         [OneTimeSetUp]
@@ -27,8 +27,7 @@ namespace FileSystemWrapper.Test
             _mockFileManager = new Mock<IFileManager>();
 
             _fileManager = new FileManager();
-            _fileName = StartupSetting.Instance.DefaultFileName;
-            _currentPath = $"{StartupSetting.Instance.MyDocumentsDirectory}\\{_fileName}";
+            _currentPath = $"{StartupSetting.Instance.MyDocumentsDirectory}.txt";
 
             _contentCollection = new List<string>
             {
@@ -37,6 +36,8 @@ namespace FileSystemWrapper.Test
                 "d:/demo/script.cpp",
                 "d:/demo/lids/script.cpp"
             };
+
+            if (File.Exists(_currentPath)) File.Delete(_currentPath);
         }
 
         [SetUp]
@@ -76,7 +77,7 @@ namespace FileSystemWrapper.Test
             // Arrange
             foreach (var content in _contentCollection)
             {
-                _fileManager.SaveAsync(_fileName, content).Wait();
+                _fileManager.SaveAsync(_currentPath, content).Wait();
             }
 
             var actual = File.ReadLines(_currentPath).ToList();
@@ -90,7 +91,7 @@ namespace FileSystemWrapper.Test
             // Assert
             foreach (var content in _contentCollection)
             {
-                _fileManager.SaveAsync(_fileName, content).Wait();
+                _fileManager.SaveAsync(_currentPath, content).Wait();
             }
 
             Assert.IsTrue(File.Exists(_currentPath));
